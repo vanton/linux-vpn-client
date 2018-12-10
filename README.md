@@ -3,9 +3,13 @@
 ## 项目介绍
 
 linux 下连接 l2tp/ipsec vpn。
+
 本地建立 vpn 隧道转发服务。
 
-> **Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。**
+---
+
+### Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。
+
 1. Install network-manager-l2tp:
 
     ```sh
@@ -32,6 +36,8 @@ linux 下连接 l2tp/ipsec vpn。
     sudo service xl2tpd stop
     sudo systemctl disable xl2tpd
     ```
+
+---
 
 ## 结构说明
 
