@@ -6,12 +6,38 @@ linux 下连接 l2tp/ipsec vpn。
 本地建立 vpn 隧道转发服务。
 
 > **Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。**
->
-> * 安装
->
-> ```sh
-> sudo apt install network-manager-l2tp network-manager-l2tp-gnome
-> ```
+1. Install network-manager-l2tp:
+
+    ```sh
+    sudo apt install network-manager-l2tp network-manager-l2tp-gnome
+    ```
+
+2. Settings > Network > Click the + button > Select “Layer 2 Tunneling Protocol (L2TP)”
+
+3. 填写服务器，用户名，密码。（注意，密码框后的 ? 点击选择存储密码）
+
+4. Click IPSec Settings…
+
+    > 选择 “Enable IPsec tunnel to L2TP host”
+
+    > 填写 ”Pre-shared key“
+
+    > Advanced 下：
+
+    > Phase 1 Algorithms 填写 “3des-sha1-modp1024”
+
+    > Phase 2 Algorithms 填写 “3des-sha1”
+
+    > 选择 “Enforce UDP encapsulation”
+
+    > 保存
+
+5. disable xl2tpd
+
+    ```sh
+    sudo service xl2tpd stop
+    sudo systemctl disable xl2tpd
+    ```
 
 ## 结构说明
 
