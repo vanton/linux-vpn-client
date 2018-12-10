@@ -18,13 +18,13 @@ linux 下连接 l2tp/ipsec vpn。
 
 4. Click IPSec Settings…
 
-    > 选择 “Enable IPsec tunnel to L2TP host”
-    > 填写 ”Pre-shared key“
-    > Advanced 下：
-    > Phase 1 Algorithms 填写 “3des-sha1-modp1024”
-    > Phase 2 Algorithms 填写 “3des-sha1”
-    > 选择 “Enforce UDP encapsulation”
-    > 保存
+    > * 选择 “Enable IPsec tunnel to L2TP host”
+    > * 填写 ”Pre-shared key“
+    > * Advanced 下：
+    > * Phase 1 Algorithms 填写 “3des-sha1-modp1024”
+    > * Phase 2 Algorithms 填写 “3des-sha1”
+    > * 选择 “Enforce UDP encapsulation”
+    > * 保存
 
 5. disable xl2tpd
 
