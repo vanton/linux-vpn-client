@@ -8,7 +8,7 @@ linux 下连接 l2tp/ipsec vpn。
 
 ---
 
-### Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。
+## Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。
 
 1. Install network-manager-l2tp:
 
