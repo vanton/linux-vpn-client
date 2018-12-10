@@ -5,6 +5,14 @@
 linux 下连接 l2tp/ipsec vpn。
 本地建立 vpn 隧道转发服务。
 
+> **Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。**
+>
+> * 安装
+>
+> ```sh
+> sudo apt install network-manager-l2tp network-manager-l2tp-gnome
+> ```
+
 ## 结构说明
 
 ```sh
@@ -40,8 +48,12 @@ echo "用户名:$(openssl passwd -1 密码):xauth-psk\n" >> /etc/ipsec.d/passwd
 ```
 
 多个用户
+
 ```sh
-echo "用户名1:$(openssl passwd -1 密码1):xauth-psk\n用户名2:$(openssl passwd -1 密码2):xauth-psk\n" > /etc/ipsec.d/passwd
+{
+    echo "用户名1:$(openssl passwd -1 密码1):xauth-psk"
+    echo "用户名2:$(openssl passwd -1 密码2):xauth-psk"
+} > /etc/ipsec.d/passwd
 ```
 
 ## 参考文献
