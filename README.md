@@ -10,6 +10,10 @@ linux 下连接 l2tp/ipsec vpn。
 
 ## Ubuntu 17.10 及 以后版本，可以使用 network-manager-l2tp 管理。
 
+    已知问题：
+        VPN 服务端 kernel 版本 4.14.* ~ 4.16.* 对 l2tp 有兼容问题。
+        建议升级到 4.19.* 版本核心。如无法升级到 4.19.*，可以尝试降级到 3.10.*。
+
 1. Install network-manager-l2tp:
 
     ```sh
@@ -22,13 +26,13 @@ linux 下连接 l2tp/ipsec vpn。
 
 4. Click IPSec Settings…
 
-    > * 选择 “Enable IPsec tunnel to L2TP host”
-    > * 填写 ”Pre-shared key“
-    > * Advanced 下：
-    > * Phase 1 Algorithms 填写 “3des-sha1-modp1024”
-    > * Phase 2 Algorithms 填写 “3des-sha1”
-    > * 选择 “Enforce UDP encapsulation”
-    > * 保存
+    > - 选择 “Enable IPsec tunnel to L2TP host”
+    > - 填写 ”Pre-shared key“
+    > - Advanced 下：
+    > - Phase 1 Algorithms 填写 “3des-sha1-modp1024”
+    > - Phase 2 Algorithms 填写 “3des-sha1”
+    > - 选择 “Enforce UDP encapsulation”
+    > - 保存
 
 5. disable xl2tpd
 
@@ -54,10 +58,10 @@ vpn_client
 
 ### 安装时需要输入的参数说明：
 
-* 你的VPN服务器IP:
-* 你的IPsec预共享密钥: 在 vpn 服务器查看 `/etc/ipsec.secrets`
-* 你的VPN用户名: 设置服务器时输入，在 vpn 服务器查看 `/etc/ppp/chap-secrets`
-* 你的VPN密码: 同上。
+- 你的VPN服务器IP:
+- 你的IPsec预共享密钥: 在 vpn 服务器查看 `/etc/ipsec.secrets`
+- 你的VPN用户名: 设置服务器时输入，在 vpn 服务器查看 `/etc/ppp/chap-secrets`
+- 你的VPN密码: 同上。
 
 ### 修改服务端账号密码
 
