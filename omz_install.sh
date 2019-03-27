@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/vanton/linux-vpn-client/master/omz_install.sh)"
 
 cd ~ || exit
