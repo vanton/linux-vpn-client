@@ -2,6 +2,8 @@
 
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/vanton/linux-vpn-client/master/omz_install.sh)"
 
+cd ~ || exit
+
 yum -y install zsh zsh-lovers
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
