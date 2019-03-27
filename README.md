@@ -50,6 +50,7 @@ vpn_client
     |-  install_vpn.sh  安装脚本。仅做了 centOS 和 ubuntu 配置。
     |-  start_vpn.sh    启动脚本
     |-  stop_vpn.sh     停止脚本
+omz_install.sh  oh-my-zsh 安装脚本
 ```
 
 ## 使用说明
