@@ -25,15 +25,15 @@ release=$(cat /proc/version)
 release=$(echo "$release" | tr '[:upper:]' '[:lower:]')
 echo "$release"
 if [[ $release =~ "ubuntu" ]] || [[ $release =~ "debian" ]]; then
-	# ? Ubuntu & Debian
-	echo -e "${yel}Ubuntu & Debian${cle}"
-	rr="ubuntu"
+    # ? Ubuntu & Debian
+    echo -e "${yel}Ubuntu & Debian${cle}"
+    rr="ubuntu"
 fi
 
 if [[ $release =~ "centos" ]] || [[ $release =~ "red hat" ]]; then
-	# ? CentOS & RHEL
-	echo -e "${yel}CentOS & RHEL${cle}"
-	rr="centos"
+    # ? CentOS & RHEL
+    echo -e "${yel}CentOS & RHEL${cle}"
+    rr="centos"
 fi
 
 # NOTE 停止通过 VPN 服务器发送数据：
@@ -43,24 +43,24 @@ route del default dev ppp0
 # NOTE 断开连接：
 echo -e "${yel}断开连接${cle}"
 case $rr in
-ubuntu)
-	echo -e "${gre}Ubuntu & Debian${cle}"
-	# ? Ubuntu & Debian
-	echo "d myvpn" >/var/run/xl2tpd/l2tp-control
-	ipsec down myvpn
-	;;
-centos)
-	echo -e "${gre}CentOS & RHEL${cle}"
-	# ? CentOS/RHEL & Fedora
-	echo "d myvpn" >/var/run/xl2tpd/l2tp-control
-	strongswan down myvpn
-	;;
-*)
-	echo -e "${gre}unknown${cle}"
-	# ? CentOS/RHEL & Fedora
-	echo "d myvpn" >/var/run/xl2tpd/l2tp-control
-	strongswan down myvpn
-	;;
+    ubuntu)
+        echo -e "${gre}Ubuntu & Debian${cle}"
+        # ? Ubuntu & Debian
+        echo "d myvpn" >/var/run/xl2tpd/l2tp-control
+        ipsec down myvpn
+    ;;
+    centos)
+        echo -e "${gre}CentOS & RHEL${cle}"
+        # ? CentOS/RHEL & Fedora
+        echo "d myvpn" >/var/run/xl2tpd/l2tp-control
+        strongswan down myvpn
+    ;;
+    *)
+        echo -e "${gre}unknown${cle}"
+        # ? CentOS/RHEL & Fedora
+        echo "d myvpn" >/var/run/xl2tpd/l2tp-control
+        strongswan down myvpn
+    ;;
 esac
 
 # NOTE VPN 断开，检查 IP 时候正常：

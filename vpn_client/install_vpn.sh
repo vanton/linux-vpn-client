@@ -25,41 +25,41 @@ release=$(cat /proc/version)
 release=$(echo "$release" | tr '[:upper:]' '[:lower:]')
 echo "$release"
 if [[ $release =~ "ubuntu" ]] || [[ $release =~ "debian" ]]; then
-	# ? Ubuntu & Debian
-	echo -e "${yel}Ubuntu & Debian${cle}"
-	rr="ubuntu"
+    # ? Ubuntu & Debian
+    echo -e "${yel}Ubuntu & Debian${cle}"
+    rr="ubuntu"
 fi
 
 if [[ $release =~ "centos" ]] || [[ $release =~ "red hat" ]]; then
-	# ? CentOS & RHEL
-	echo -e "${yel}CentOS & RHEL${cle}"
-	rr="centos"
+    # ? CentOS & RHEL
+    echo -e "${yel}CentOS & RHEL${cle}"
+    rr="centos"
 fi
 
 # NOTE 安装依赖
 echo -e "${yel}安装依赖${cle}"
 case $rr in
-ubuntu)
-	echo -e "${gre}Ubuntu & Debian${cle}"
-	# ? Ubuntu & Debian
-	apt-get update
-	apt-get -y install strongswan xl2tpd
-	apt-get -y install ack-grep
-	;;
-centos)
-	echo -e "${gre}CentOS & RHEL${cle}"
-	# ? CentOS/RHEL & Fedora
-	yum -y install epel-release
-	yum --enablerepo=epel -y install strongswan xl2tpd
-	yum --enablerepo=epel -y install ack
-	;;
-*)
-	echo -e "${gre}unknown${cle}"
-	# ? CentOS/RHEL & Fedora
-	yum -y install epel-release
-	yum --enablerepo=epel -y install strongswan xl2tpd
-	yum --enablerepo=epel -y install ack
-	;;
+    ubuntu)
+        echo -e "${gre}Ubuntu & Debian${cle}"
+        # ? Ubuntu & Debian
+        apt-get update
+        apt-get -y install strongswan xl2tpd
+        apt-get -y install ack-grep
+    ;;
+    centos)
+        echo -e "${gre}CentOS & RHEL${cle}"
+        # ? CentOS/RHEL & Fedora
+        yum -y install epel-release
+        yum --enablerepo=epel -y install strongswan xl2tpd
+        yum --enablerepo=epel -y install ack
+    ;;
+    *)
+        echo -e "${gre}unknown${cle}"
+        # ? CentOS/RHEL & Fedora
+        yum -y install epel-release
+        yum --enablerepo=epel -y install strongswan xl2tpd
+        yum --enablerepo=epel -y install ack
+    ;;
 esac
 
 # NOTE 创建 VPN 变量
@@ -122,20 +122,20 @@ chmod 600 /etc/ipsec.secrets
 # NOTE 修改系统配置
 echo -e "${yel}修改系统配置${cle}"
 case $rr in
-ubuntu)
-	echo -e "${gre}Ubuntu 不需要修改${cle}"
-	;;
-centos)
-	echo -e "${gre}CentOS & RHEL${cle}"
-	# ! For CentOS/RHEL & Fedora ONLY
-	mv /etc/strongswan/ipsec.conf /etc/strongswan/ipsec.conf.old 2>/dev/null
-	mv /etc/strongswan/ipsec.secrets /etc/strongswan/ipsec.secrets.old 2>/dev/null
-	ln -s /etc/ipsec.conf /etc/strongswan/ipsec.conf
-	ln -s /etc/ipsec.secrets /etc/strongswan/ipsec.secrets
-	;;
-*)
-	echo -e "${gre}unknown 不需要修改${cle}"
-	;;
+    ubuntu)
+        echo -e "${gre}Ubuntu 不需要修改${cle}"
+    ;;
+    centos)
+        echo -e "${gre}CentOS & RHEL${cle}"
+        # ! For CentOS/RHEL & Fedora ONLY
+        mv /etc/strongswan/ipsec.conf /etc/strongswan/ipsec.conf.old 2>/dev/null
+        mv /etc/strongswan/ipsec.secrets /etc/strongswan/ipsec.secrets.old 2>/dev/null
+        ln -s /etc/ipsec.conf /etc/strongswan/ipsec.conf
+        ln -s /etc/ipsec.secrets /etc/strongswan/ipsec.secrets
+    ;;
+    *)
+        echo -e "${gre}unknown 不需要修改${cle}"
+    ;;
 esac
 
 # NOTE 配置 xl2tpd

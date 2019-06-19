@@ -22,107 +22,107 @@ reD="\\033[4;31m" # 31 41 red   #c33
 export LC_CTYPE=en_US.UTF-8
 
 h() {
-	param=(
-		"ppp.*"
-		"inet [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*"
-		"from [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*\\[[0-9]*\\]"
-		"to [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*\\[[0-9]*\\]"
-	)
-	_OPTS=" -i "
-	n_flag=
+    param=(
+        "ppp.*"
+        "inet [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*"
+        "from [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*\\[[0-9]*\\]"
+        "to [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*\\[[0-9]*\\]"
+    )
+    _OPTS=" -i "
+    n_flag=
 
-	# set zsh compatibility
-	[[ -n $ZSH_VERSION ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
+    # set zsh compatibility
+    [[ -n $ZSH_VERSION ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
 
-	local _i=0
+    local _i=0
 
-	if [[ -n $H_COLORS_FG ]]; then
-		local _CSV="$H_COLORS_FG"
-		local OLD_IFS="$IFS"
-		IFS=','
-		local _COLORS_FG=()
-		for entry in $_CSV; do
-			_COLORS_FG=("${_COLORS_FG[@]}" "$entry")
-		done
-		IFS="$OLD_IFS"
-	else
-		_COLORS_FG=(
-			"underline bold red"
-			"underline bold green"
-			"underline bold yellow"
-			"underline bold blue"
-			"underline bold magenta"
-			"underline bold cyan"
-		)
-	fi
+    if [[ -n $H_COLORS_FG ]]; then
+        local _CSV="$H_COLORS_FG"
+        local OLD_IFS="$IFS"
+        IFS=','
+        local _COLORS_FG=()
+        for entry in $_CSV; do
+            _COLORS_FG=("${_COLORS_FG[@]}" "$entry")
+        done
+        IFS="$OLD_IFS"
+    else
+        _COLORS_FG=(
+            "underline bold red"
+            "underline bold green"
+            "underline bold yellow"
+            "underline bold blue"
+            "underline bold magenta"
+            "underline bold cyan"
+        )
+    fi
 
-	if [[ -n $H_COLORS_BG ]]; then
-		local _CSV="$H_COLORS_BG"
-		local OLD_IFS="$IFS"
-		IFS=','
-		local _COLORS_BG=()
-		for entry in $_CSV; do
-			_COLORS_BG=("${_COLORS_BG[@]}" "$entry")
-		done
-		IFS="$OLD_IFS"
-	else
-		_COLORS_BG=(
-			"bold on_red"
-			"bold on_green"
-			"bold black on_yellow"
-			"bold on_blue"
-			"bold on_magenta"
-			"bold on_cyan"
-			"bold black on_white"
-		)
-	fi
+    if [[ -n $H_COLORS_BG ]]; then
+        local _CSV="$H_COLORS_BG"
+        local OLD_IFS="$IFS"
+        IFS=','
+        local _COLORS_BG=()
+        for entry in $_CSV; do
+            _COLORS_BG=("${_COLORS_BG[@]}" "$entry")
+        done
+        IFS="$OLD_IFS"
+    else
+        _COLORS_BG=(
+            "bold on_red"
+            "bold on_green"
+            "bold black on_yellow"
+            "bold on_blue"
+            "bold on_magenta"
+            "bold on_cyan"
+            "bold black on_white"
+        )
+    fi
 
-	if [[ -z $n_flag ]]; then
-		# inverted-colors-last scheme
-		_COLORS=("${_COLORS_FG[@]}" "${_COLORS_BG[@]}")
-	else
-		# inverted-colors-first scheme
-		_COLORS=("${_COLORS_BG[@]}" "${_COLORS_FG[@]}")
-	fi
+    if [[ -z $n_flag ]]; then
+        # inverted-colors-last scheme
+        _COLORS=("${_COLORS_FG[@]}" "${_COLORS_BG[@]}")
+    else
+        # inverted-colors-first scheme
+        _COLORS=("${_COLORS_BG[@]}" "${_COLORS_FG[@]}")
+    fi
 
-	if [ -n "$ZSH_VERSION" ]; then
-		local WHICH="whence"
-	else
-		[ -n "$BASH_VERSION" ]
-		local WHICH="type -P"
-	fi
+    if [ -n "$ZSH_VERSION" ]; then
+        local WHICH="whence"
+    else
+        [ -n "$BASH_VERSION" ]
+        local WHICH="type -P"
+    fi
 
-	if ! ACKGREP_LOC="$($WHICH ack-grep)" || [ -z "$ACKGREP_LOC" ]; then
-		if ! ACK_LOC="$($WHICH ack)" || [ -z "$ACK_LOC" ]; then
-			echo "ERROR: Could not find the ack or ack-grep commands"
-			return 1
-		else
-			local ACK=$($WHICH ack)
-		fi
-	else
-		local ACK=$($WHICH ack-grep)
-	fi
+    if ! ACKGREP_LOC="$($WHICH ack-grep)" || [ -z "$ACKGREP_LOC" ]; then
+        if ! ACK_LOC="$($WHICH ack)" || [ -z "$ACK_LOC" ]; then
+            echo "ERROR: Could not find the ack or ack-grep commands"
+            return 1
+        else
+            local ACK=$($WHICH ack)
+        fi
+    else
+        local ACK=$($WHICH ack-grep)
+    fi
 
-	for keyword in "${param[@]}"; do
-		# echo "!! "${keyword}
-		local _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
-		_i=$_i+1
-	done
-	# trim ending pipe
-	_COMMAND=${_COMMAND%?}
-	# echo "$_COMMAND"
-	cat - | eval $_COMMAND
+    for keyword in "${param[@]}"; do
+        # echo "!! "${keyword}
+        local _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+        _i=$_i+1
+    done
+    # trim ending pipe
+    _COMMAND=${_COMMAND%?}
+    # echo "$_COMMAND"
+    cat - | eval $_COMMAND
 }
 
 countdown() {
-	seconds_left=5
-	# echo "请等待 ${seconds_left} 秒……"
-	while [ $seconds_left -gt 0 ]; do
-		echo -n $seconds_left
-		sleep 1
-		seconds_left=$((seconds_left - 1))
-		echo -ne "\\r     \\r" #清除本行文字
-	done
+    seconds_left=5
+    # echo "请等待 ${seconds_left} 秒……"
+    while [ $seconds_left -gt 0 ]; do
+        echo -n $seconds_left
+        sleep 1
+        seconds_left=$((seconds_left - 1))
+        echo -ne "\\r     \\r" #清除本行文字
+    done
 }
 
 # NOTE 判断系统版本
@@ -131,13 +131,13 @@ release=$(cat /proc/version)
 release=$(echo "$release" | tr '[:upper:]' '[:lower:]')
 echo "$release"
 if [[ $release =~ "ubuntu" ]] || [[ $release =~ "debian" ]]; then
-	# ? Ubuntu & Debian
-	rr="ubuntu"
+    # ? Ubuntu & Debian
+    rr="ubuntu"
 fi
 
 if [[ $release =~ "centos" ]] || [[ $release =~ "red hat" ]]; then
-	# ? CentOS & RHEL
-	rr="centos"
+    # ? CentOS & RHEL
+    rr="centos"
 fi
 
 # NOTE 创建 xl2tpd 控制文件：
@@ -157,21 +157,21 @@ countdown
 # NOTE 开始 IPsec 连接：
 echo -e "${yel}开始 IPsec 连接${cle}"
 case $rr in
-ubuntu)
-	echo -e "${gre}Ubuntu & Debian${cle}"
-	# ? Ubuntu & Debian
-	ipsec up myvpn | h
-	;;
-centos)
-	echo -e "${gre}CentOS & RHEL${cle}"
-	# ? CentOS/RHEL & Fedora
-	strongswan up myvpn | h
-	;;
-*)
-	echo -e "${gre}unknown${cle}"
-	# ? CentOS/RHEL & Fedora
-	strongswan up myvpn | h
-	;;
+    ubuntu)
+        echo -e "${gre}Ubuntu & Debian${cle}"
+        # ? Ubuntu & Debian
+        ipsec up myvpn | h
+    ;;
+    centos)
+        echo -e "${gre}CentOS & RHEL${cle}"
+        # ? CentOS/RHEL & Fedora
+        strongswan up myvpn | h
+    ;;
+    *)
+        echo -e "${gre}unknown${cle}"
+        # ? CentOS/RHEL & Fedora
+        strongswan up myvpn | h
+    ;;
 esac
 
 # NOTE 等待配置完成：
@@ -210,11 +210,11 @@ MY_IP=$(wget -qO- http://ipv4.icanhazip.com)
 echo -e -n "${mag}本地电脑的公有 IP (${cle}$MY_IP${mag}):${cle} "
 read -r MY_IP_INPUT
 if [[ -n $MY_IP_INPUT ]]; then
-	echo "input: $MY_IP_INPUT"
-	route add "$MY_IP_INPUT" gw "$gw"
+    echo "input: $MY_IP_INPUT"
+    route add "$MY_IP_INPUT" gw "$gw"
 else
-	echo "$MY_IP"
-	route add "$MY_IP" gw "$gw"
+    echo "$MY_IP"
+    route add "$MY_IP" gw "$gw"
 fi
 
 # NOTE 添加一个新的默认路由，并且开始通过 VPN 服务器发送数据：
